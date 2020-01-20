@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Students</title>
+        <link rel="stylesheet" type="text/css" th:href= "@{/css/style.css}">
+    </head>
+    <body>
+        <div th:unless="${#lists.isEmpty(students)}">
+            <table>
+                <thead>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th></th>
+                </thead>
+                <tbody >
+                    <tr th:each="std : ${students}">
+                        <td th:text="${std.firstName}">fname</td>
+                        <td th:text="${std.lastName}">fname</td>
+                        <td th:text="${std.email}">fname</td>
+                        <td th:text="${std.course}">fname</td>
+                        <td>
+                            <button type = "submit" value="${std.id}" name="delete">Delete</button>
+                            <button type = "submit" value="${std.id}" name="delete">Edit</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+</html>
