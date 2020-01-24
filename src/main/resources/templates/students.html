@@ -7,28 +7,31 @@
     </head>
     <body>
         <div th:unless="${#lists.isEmpty(students)}">
-            <table>
-                <thead>
+            <form th:action="@{/students}">
+                <table>
+                    <thead>
                     <th>FirstName</th>
                     <th>LastName</th>
                     <th>Email</th>
                     <th>Course</th>
                     <th></th>
-                </thead>
-                <tbody >
+                    </thead>
+                    <tbody >
                     <tr th:each="std : ${students}">
                         <td th:text="${std.firstName}">fname</td>
                         <td th:text="${std.lastName}">fname</td>
                         <td th:text="${std.email}">fname</td>
                         <td th:text="${std.course}">fname</td>
-                        <td>
-                            <button type = "submit" value="${std.id}" name="delete">Delete</button>
-                            <button type = "submit" value="${std.id}" name="delete">Edit</button>
+                        <td >
+                            <button type = "submit" th:value="${std.id}" name="delete">Delete</button>
+                            <button type = "submit" th:value="${std.id}" name="edit">Edit</button>
                         </td>
                     </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </form>
+
         </div>
 
     </body>

@@ -37,11 +37,11 @@ public class StudentController {
 
     }
 
-    @DeleteMapping("/students/{id}")
+    /*@DeleteMapping("/students/{id}")
     public String deleteStudent(@PathVariable String id){
         repository.deleteById(id);
         return "students";
-    }
+    }*/
 
     @RequestMapping(value = "/students", method={RequestMethod.POST,RequestMethod.PUT})
     public String saveStudent(@Valid @RequestBody Student std){
@@ -57,6 +57,13 @@ public class StudentController {
         }
         repository.save(std);
         return "students";
+    }
+
+    @RequestMapping(value = "/students", params ={"delete"})
+    public String deleteStudent(@RequestParam(value="delete",required = false) String id){
+        System.out.println(id);
+        repository.deleteById(id);
+        return "redirect:/students";
     }
 
 }
