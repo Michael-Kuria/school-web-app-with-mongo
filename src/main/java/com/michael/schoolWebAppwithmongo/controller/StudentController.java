@@ -1,20 +1,23 @@
 package com.michael.schoolWebAppwithmongo.controller;
 
-import com.michael.schoolWebAppwithmongo.documents.Administrator;
 import com.michael.schoolWebAppwithmongo.documents.Student;
 import com.michael.schoolWebAppwithmongo.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class StudentController {
 
     private StudentRepository repository;
+
+    private Logger log = LoggerFactory.getLogger(StudentController.class);
 
     public StudentController(StudentRepository repository){
         this.repository = repository;
@@ -37,18 +40,44 @@ public class StudentController {
 
     }
 
+    @GetMapping(value="/addStudent")
+    public String  getAddStudent(Student student){
+
+        return "addStudent";
+    }
+
+    @RequestMapping(value="/students", params = {"edit"})
+    public String editStudent(Model model, @RequestParam(value="edit", required = false) String id ){
+        Optional<Student> std = repository.findById(id);
+        if(std.isPresent()){
+            model.addAttribute("student", std);
+            return "/addStudent";
+        }
+        return "/addStudent";
+    }
+
+
+
+
     /*@DeleteMapping("/students/{id}")
     public String deleteStudent(@PathVariable String id){
         repository.deleteById(id);
         return "students";
     }*/
 
-    @RequestMapping(value = "/students", method={RequestMethod.POST,RequestMethod.PUT})
-    public String saveStudent(@Valid @RequestBody Student std){
+    @RequestMapping(value = "/addStudent", params = {"saveStudent"})
+    public String saveStudent(Student std, final BindingResult result){
 
-        Student repoStd = repository.findById(std.getId()).get();
+        if(result.hasErrors()){
+            return "/addStudent";
+        }
 
-        if(repoStd != null){
+        Optional<Student> repoStdOp = repository.findById(std.getId());
+
+        if(repoStdOp.isPresent()){
+            Student repoStd = repoStdOp.get();
+
+
             repoStd.setCourse(std.getCourse());
             repoStd.setYearOfStudy(std.getYearOfStudy());
             repoStd.setFirstName(std.getFirstName());
@@ -56,8 +85,9 @@ public class StudentController {
             std = repoStd;
         }
         repository.save(std);
-        return "students";
+        return "redirect:/students";
     }
+
 
     @RequestMapping(value = "/students", params ={"delete"})
     public String deleteStudent(@RequestParam(value="delete",required = false) String id){

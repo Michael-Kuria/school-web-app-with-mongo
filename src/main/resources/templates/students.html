@@ -24,15 +24,20 @@
                         <td th:text="${std.course}">fname</td>
                         <td >
                             <button type = "submit" th:value="${std.id}" name="delete">Delete</button>
-                            <button type = "submit" th:value="${std.id}" name="edit">Edit</button>
+                            <a th:href="@{/addStudent}"><button type = "submit" th:value="${std.id}" name="edit" >Edit</button></a>
                         </td>
                     </tr>
+
 
                     </tbody>
                 </table>
             </form>
+            <div class="addStudent">
+                <a th:href="@{/addStudent}"><button>Add Student</button></a>
+            </div>
 
         </div>
+
 
     </body>
 </html>

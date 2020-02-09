@@ -23,8 +23,6 @@ public class AdministratorSecurityDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         try{
             final Administrator admin = repository.findAdministratorByEmailIgnoreCase(s);
-            log.info(admin.getPassword());
-            log.info(admin.getEmail());
             if(admin != null){
                 return User.withUsername(admin.getEmail())
                         .accountLocked(false)

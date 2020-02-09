@@ -3,10 +3,13 @@ package com.michael.schoolWebAppwithmongo.documents;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import javax.annotation.Generated;
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @Data
 public class Person {
+
 
     @Id
     private String id;
@@ -15,4 +18,8 @@ public class Person {
     private String lastName;
 
     private String email;
+
+    public Person(){
+        id = UUID.randomUUID().toString();
+    }
 }
