@@ -29,10 +29,10 @@ public class StudentController {
         return repository.findAll(Sort.by(Sort.Order.asc("firstName")));
     }
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String getLoginPage(){
         return "login";
-    }
+    }*/
 
     @GetMapping("/students")
     public String  getStudents(){

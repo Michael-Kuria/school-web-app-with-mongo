@@ -9,6 +9,8 @@ made using the following technologies from spring boot.
 
 
 # Todo
-- add functionality to edit and delete
-- allow creation of students
-- 
+- add functionality to edit and delete {done}
+- allow creation of students {done}
+- Ensure that the ErrorHandler class is working fine
+- Be able to access a url for a request
+- Ensure that the user is notified of an error in the **login page** when it happens`{error.message, HttpStatus.BAD_REQUEST}`

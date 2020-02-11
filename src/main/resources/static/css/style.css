@@ -119,3 +119,8 @@ tr:nth-child(odd){
     width: 20%;
     margin-left: 10%;
 }
+
+.error{
+    color:red;
+    word-wrap: break-word;
+}

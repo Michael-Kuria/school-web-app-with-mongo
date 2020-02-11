@@ -3,11 +3,11 @@ package com.michael.schoolWebAppwithmongo.documents;
 import lombok.Data;
 
 @Data
-public class Error {
+public class ErrorMessages {
 
-    private String message;
+    public String message;
 
-    public Error(String message){
+    public ErrorMessages(String message){
 
         this.message = message;
     }
